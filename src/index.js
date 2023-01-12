@@ -3,18 +3,20 @@
  * @Author: SiFeng Zhai
  * @Date: 2022-12-30 09:02:23
  * @LastEditors: SiFeng Zhai
- * @LastEditTime: 2022-12-30 11:20:30
+ * @LastEditTime: 2023-01-03 20:58:15
  */
 import React, { Suspense } from 'react'
 import ReactDOM from 'react-dom/client'
 import { HashRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
+import { ThemeProvider } from 'styled-components'
 
 
 import App from './App'
 import store from './store'
 import 'normalize.css'
-import '@/assets/css/reset.less'
+import '@/assets/css/index.less'
+import theme from './assets/theme'
 
 
 
@@ -23,9 +25,11 @@ root.render(
   <React.StrictMode>
     <Suspense fallback='loading'>
       <Provider store={store}>
-        <HashRouter>
-        <App />
-      </HashRouter>
+        <ThemeProvider theme={theme}>
+          <HashRouter>
+            <App />
+          </HashRouter>
+        </ThemeProvider>
       </Provider>
     </Suspense>
   </React.StrictMode>

@@ -3,7 +3,7 @@
  * @Author: SiFeng Zhai
  * @Date: 2022-12-30 09:40:25
  * @LastEditors: SiFeng Zhai
- * @LastEditTime: 2022-12-30 09:51:53
+ * @LastEditTime: 2023-01-03 21:39:58
  */
 const path = require('path');
 const CracoLessPlugin = require('craco-less');
@@ -22,7 +22,7 @@ module.exports = {
     alias: {
       '@': resolve('src'),
       'components': resolve('src/components'),
-      'utils': resolve('src/utils')
+      'utils': resolve('src/utils'),
     }
   }
 }
