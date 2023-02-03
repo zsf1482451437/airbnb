@@ -3,14 +3,14 @@
  * @Author: SiFeng Zhai
  * @Date: 2023-01-06 11:16:52
  * @LastEditors: SiFeng Zhai
- * @LastEditTime: 2023-01-12 09:11:25
+ * @LastEditTime: 2023-01-12 09:21:32
  */
-import IconMoreArrow from '@/assets/svg/icon_more_arrow'
 import PropTypes from 'prop-types'
 import React, { memo } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { FooterWrapper } from './style'
+import IconMoreArrow from '@/assets/svg/icon_more_arrow'
 
 const SectionFooter = memo((props) => {
   const { name } = props

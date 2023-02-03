@@ -3,13 +3,29 @@
  * @Author: SiFeng Zhai
  * @Date: 2022-12-30 10:26:15
  * @LastEditors: SiFeng Zhai
- * @LastEditTime: 2022-12-30 10:28:30
+ * @LastEditTime: 2023-01-13 20:21:56
  */
-import React, { memo } from 'react'
+
+import React, { memo, useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+
+import EntireFilter from './c-cpns/entire-filter'
+import EntirePagination from './c-cpns/entire-pagination'
+import EntireRooms from './c-cpns/entire-rooms'
+import { EntireWrapper } from './style'
+import { fetchRoomListAction } from '@/store/modules/entire/createActions'
 
 const Entire = memo(() => {
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(fetchRoomListAction())
+  }, [dispatch])
   return (
-    <div>Entire</div>
+    <EntireWrapper>
+      <EntireFilter />
+      <EntireRooms />
+      <EntirePagination />
+    </EntireWrapper>
   )
 })
 

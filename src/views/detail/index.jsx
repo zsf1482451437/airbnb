@@ -3,13 +3,20 @@
  * @Author: SiFeng Zhai
  * @Date: 2022-12-30 10:26:49
  * @LastEditors: SiFeng Zhai
- * @LastEditTime: 2022-12-30 10:29:00
+ * @LastEditTime: 2023-02-02 21:53:25
  */
 import React, { memo } from 'react'
+import DetailInfo from './c-cpns/detail-info'
+import DetailPictures from './c-cpns/detail-pictures'
+import { DetailWrapper } from './style'
 
 const Detail = memo(() => {
+
   return (
-    <div>Detail</div>
+    <DetailWrapper>
+      <DetailPictures />
+      <DetailInfo />
+    </DetailWrapper>
   )
 })
 

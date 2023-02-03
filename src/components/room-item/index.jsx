@@ -3,25 +3,93 @@
  * @Author: SiFeng Zhai
  * @Date: 2023-01-03 19:18:34
  * @LastEditors: SiFeng Zhai
- * @LastEditTime: 2023-01-06 08:40:33
+ * @LastEditTime: 2023-02-02 21:14:08
  */
 import { Rating } from '@mui/material'
 import PropTypes from 'prop-types'
-import React, { memo } from 'react'
+import React, { memo, useRef, useState } from 'react'
+import { Carousel } from 'antd'
 
 import { ItemWrapper } from './style'
+import IconArrowLeft from '@/assets/svg/icon-arrow-left'
+import IconArrowRight from '@/assets/svg/icon-arrow-right'
+import Indicator from '@/base-ui/indicator'
+import classNames from 'classnames'
 
 const RoomItem = memo((props) => {
-  const { itemData, itemWidth = '25%' } = props
+  const { itemData, itemWidth = '25%', itemClick } = props
+  const [selectedIndex, setSelectedIndex] = useState(0)
+  const swiperRef = useRef()
+  // 事件处理
+  function controlClick (isRight = true) {
+    // 上一张，下一张
+    isRight ? swiperRef.current.next() : swiperRef.current.prev()
+    // 更新选中item
+    let newIndex = isRight ? selectedIndex + 1 : selectedIndex - 1
+    const length = itemData.picture_urls.length
+    if (newIndex < 0) newIndex = length - 1
+    if (newIndex > length - 1) newIndex = 0
+    setSelectedIndex(newIndex)
+  }
+
+  function itemClickHanlde () {
+    if (itemClick) itemClick(itemData)
+  }
+  // 子元素赋值
+  const pictrueEl = (
+    <div className='cover'>
+      <img src={itemData.picture_url} alt="" />
+    </div>
+  )
+
+  const swiperEl = (
+    <div className='swiper'>
+      {/* 左右箭头 */}
+      <div className='control'>
+        <div className='btn left' onClick={e => controlClick(false)}>
+          <IconArrowLeft width="30" height="30" />
+        </div>
+        <div className='btn right' onClick={e => controlClick()}>
+          <IconArrowRight width="30" height="30" />
+        </div>
+      </div>
+      {/* 图片 */}
+      <Carousel dots={false} ref={swiperRef}>
+        {
+          itemData?.picture_urls?.map(item => {
+            return (
+              <div className='cover' key={item}>
+                <img src={item} alt="" />
+              </div>
+            )
+          })
+        }
+      </Carousel>
+      {/* 指示器 */}
+      <div className='indicator'>
+        <Indicator selectedIndex={selectedIndex}>
+          {
+            itemData?.picture_urls?.map((item, index) => {
+              return (
+                <div className='dot-item' key={item}>
+                  <span className={classNames('dot', { active: selectedIndex === index })}></span>
+                </div>
+              )
+            })
+          }
+        </Indicator>
+      </div>
+    </div>
+  )
   return (
     <ItemWrapper
       verifyColor={itemData?.verify_info?.text_color || '#39576a'}
       itemWidth={itemWidth}
+      onClick={itemClickHanlde}
     >
       <div className='inner'>
-        <div className='cover'>
-          <img src={itemData.picture_url} alt="" />
-        </div>
+        {/* 轮播图片区 */}
+        {!itemData.picture_urls ? pictrueEl : swiperEl}
         <div className='desc'>
           {itemData.verify_info.messages.join('·')}
         </div>
