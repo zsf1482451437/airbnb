@@ -3,7 +3,7 @@
  * @Author: SiFeng Zhai
  * @Date: 2023-01-03 19:18:34
  * @LastEditors: SiFeng Zhai
- * @LastEditTime: 2023-02-02 21:14:08
+ * @LastEditTime: 2023-02-04 16:03:14
  */
 import { Rating } from '@mui/material'
 import PropTypes from 'prop-types'
@@ -21,7 +21,7 @@ const RoomItem = memo((props) => {
   const [selectedIndex, setSelectedIndex] = useState(0)
   const swiperRef = useRef()
   // 事件处理
-  function controlClick (isRight = true) {
+  function controlClick (isRight = true, event) {
     // 上一张，下一张
     isRight ? swiperRef.current.next() : swiperRef.current.prev()
     // 更新选中item
@@ -30,6 +30,8 @@ const RoomItem = memo((props) => {
     if (newIndex < 0) newIndex = length - 1
     if (newIndex > length - 1) newIndex = 0
     setSelectedIndex(newIndex)
+    // 阻止事件冒泡
+    event.stopPropagation()
   }
 
   function itemClickHanlde () {
@@ -46,10 +48,10 @@ const RoomItem = memo((props) => {
     <div className='swiper'>
       {/* 左右箭头 */}
       <div className='control'>
-        <div className='btn left' onClick={e => controlClick(false)}>
+        <div className='btn left' onClick={e => controlClick(false, e)}>
           <IconArrowLeft width="30" height="30" />
         </div>
-        <div className='btn right' onClick={e => controlClick()}>
+        <div className='btn right' onClick={e => controlClick(true, e)}>
           <IconArrowRight width="30" height="30" />
         </div>
       </div>
