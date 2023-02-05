@@ -3,12 +3,14 @@
  * @Author: SiFeng Zhai
  * @Date: 2023-01-03 19:18:34
  * @LastEditors: SiFeng Zhai
- * @LastEditTime: 2023-02-04 16:03:14
+ * @LastEditTime: 2023-02-05 16:52:28
  */
 import { Rating } from '@mui/material'
 import PropTypes from 'prop-types'
 import React, { memo, useRef, useState } from 'react'
-import { Carousel } from 'antd'
+import { Button, notification, Space, Carousel } from 'antd'
+import { SmileOutlined } from '@ant-design/icons'
+import { useNavigate } from 'react-router-dom'
 
 import { ItemWrapper } from './style'
 import IconArrowLeft from '@/assets/svg/icon-arrow-left'
@@ -20,6 +22,11 @@ const RoomItem = memo((props) => {
   const { itemData, itemWidth = '25%', itemClick } = props
   const [selectedIndex, setSelectedIndex] = useState(0)
   const swiperRef = useRef()
+  const [api, contextHolder] = notification.useNotification()
+  const navigate = useNavigate()
+  function toDetail () {
+    navigate('/entire')
+  }
   // 事件处理
   function controlClick (isRight = true, event) {
     // 上一张，下一张
@@ -37,9 +44,32 @@ const RoomItem = memo((props) => {
   function itemClickHanlde () {
     if (itemClick) itemClick(itemData)
   }
+
+  function openNotification () {
+    const key = `open${Date.now()}`
+    const btn = (
+      <Space>
+        <Button type="primary" size="small" onClick={toDetail}>
+          显示更多房源
+        </Button>
+      </Space>
+    )
+    api.open({
+      message: '温馨提示',
+      description:
+        '暂无对应接口，请点击显示更多房源查看详情',
+      btn,
+      key,
+      icon: (
+        <SmileOutlined style={{ color: '#108ee9', }} />
+      ),
+    })
+  }
+
   // 子元素赋值
   const pictrueEl = (
-    <div className='cover'>
+    <div className='cover' onClick={openNotification}>
+      {contextHolder}
       <img src={itemData.picture_url} alt="" />
     </div>
   )

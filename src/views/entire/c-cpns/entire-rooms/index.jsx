@@ -3,13 +3,16 @@
  * @Author: SiFeng Zhai
  * @Date: 2023-01-12 09:47:49
  * @LastEditors: SiFeng Zhai
- * @LastEditTime: 2023-02-02 21:15:14
+ * @LastEditTime: 2023-02-05 17:04:51
  */
 import React, { memo, useCallback } from 'react'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import CountUp from 'react-countup'
+
 import { RoomsWrapper } from './style'
 import RoomItem from '@/components/room-item'
-import { useNavigate } from 'react-router-dom'
+
 import { changeDetailInfoAction } from '@/store/modules/detail'
 
 const EntireRooms = memo(() => {
@@ -30,7 +33,10 @@ const EntireRooms = memo(() => {
 
   return (
     <RoomsWrapper>
-      <h2 className='title'>{totalCount}多处住宿</h2>
+      <h2 className='title'>
+        <CountUp start={0} end={totalCount} duration='2'></CountUp>
+        多处住宿
+      </h2>
       <div className='list'>
         {
           roomList.map(item => {
