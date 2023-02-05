@@ -3,7 +3,7 @@
  * @Author: SiFeng Zhai
  * @Date: 2022-12-30 10:22:49
  * @LastEditors: SiFeng Zhai
- * @LastEditTime: 2023-01-12 08:17:29
+ * @LastEditTime: 2023-02-05 09:07:01
  */
 import React, { memo, useEffect } from 'react'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
@@ -16,6 +16,7 @@ import HomeSectionV2 from './c-cpns/home-section-v2'
 import { isEmptyObject } from '@/utils'
 import HomeLongFor from './c-cpns/home-longfor'
 import HomeSectionV3 from './c-cpns/home-section-v3'
+import { changeHeaderConfigAction } from '@/store/modules/main'
 
 
 const Home = memo(() => {
@@ -40,6 +41,7 @@ const Home = memo(() => {
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(fetchHomeDataAction())
+    dispatch(changeHeaderConfigAction({ isFixed: true, topAlpha: true }))
   }, [dispatch])
 
   return (

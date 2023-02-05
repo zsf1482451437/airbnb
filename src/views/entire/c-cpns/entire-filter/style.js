@@ -3,11 +3,16 @@
  * @Author: SiFeng Zhai
  * @Date: 2023-01-12 09:44:57
  * @LastEditors: SiFeng Zhai
- * @LastEditTime: 2023-01-12 10:08:14
+ * @LastEditTime: 2023-02-04 16:47:23
  */
 import styled from "styled-components"
 
 export const FilterWrapper = styled.div`
+  position: fixed;
+  z-index: 9;
+  top: 80px;
+  left: 0;
+  right: 0;
   display: flex;
   align-items: center;
   height: 48px;

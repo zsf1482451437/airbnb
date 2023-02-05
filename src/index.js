@@ -3,7 +3,7 @@
  * @Author: SiFeng Zhai
  * @Date: 2022-12-30 09:02:23
  * @LastEditors: SiFeng Zhai
- * @LastEditTime: 2023-01-03 20:58:15
+ * @LastEditTime: 2023-02-04 22:56:45
  */
 import React, { Suspense } from 'react'
 import ReactDOM from 'react-dom/client'
@@ -22,15 +22,13 @@ import theme from './assets/theme'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
-  <React.StrictMode>
+  <Provider store={store}>
     <Suspense fallback='loading'>
-      <Provider store={store}>
-        <ThemeProvider theme={theme}>
-          <HashRouter>
-            <App />
-          </HashRouter>
-        </ThemeProvider>
-      </Provider>
+      <ThemeProvider theme={theme}>
+        <HashRouter>
+          <App />
+        </HashRouter>
+      </ThemeProvider>
     </Suspense>
-  </React.StrictMode>
+  </Provider>
 )
